@@ -1,38 +1,4 @@
 <?php
-class formulaire {
-	public $num = 0;
-	public $vie = '<input type="text" value="" name="vie';
-	public $force = '<input type="text" value="" name="force';
-	public $nom = '<input type="text" value="" name="nom';
-	public $soin = '<input type="text" value="" name="soin';
-	public $armure = '<input type="text" value="" name="armure';
-	public $attPhysique = '<input type="text" value="" name="attPhysique';
-
-	public function __construct($i)
-	{
-		$this->num = $i;
-	}
-
-	public function addI()
-	{
-		$this->vie .= $this->num.'">';
-		$this->force .= $this->num.'">';
-		$this->nom .= $this->num.'">';
-		$this->soin .= $this->num.'">';
-		$this->armure .= $this->num.'">';
-		$this->attPhysique .= $this->num.'">';
-	}
-
-	public function echoForm()
-	{
-		echo 'vie perso '.$this->num.': '.$this->vie;
-		echo 'force perso '.$this->num.': '.$this->force;
-		echo 'nom perso '.$this->num.': '.$this->nom;
-		echo 'soin perso '.$this->num.': '.$this->soin;
-		echo 'armure perso '.$this->num.': '.$this->armure;
-		echo 'attPhysique perso '.$this->num.': '.$this->attPhysique;
-	}
-}
 
 class myPerso{
 	public $vie = 100;
@@ -102,6 +68,24 @@ class myPerso{
 				echo $enemy->nom." est vivant<br>";
 			else
 				echo $enemy->nom." est mort<br>";
+	}
+
+	public function randomAction($enemy)
+	{
+		$type = rand(0, 2);
+		if(!$type)
+			$this->regen();
+		elseif ($type == 1) 
+			$this->attaque($enemy);
+		else
+			$this->attaquePhysique($enemy);
+		$type = rand(0, 2);
+		if(!$type)
+			$enemy->regen();
+		elseif ($type == 1) 
+			$enemy->attaque($this);
+		else
+			$enemy->attaquePhysique($this);
 	}
 }
 ?>
